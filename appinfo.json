@@ -1,0 +1,101 @@
+{
+    "appKeys": {
+        "KEY_CLOCK": 0,
+        "KEY_CLOCK_FORMAT": 6,
+        "KEY_CONDITIONS": 4,
+        "KEY_DATE": 2,
+        "KEY_DATE_FORMAT": 7,
+        "KEY_SCALE": 1,
+        "KEY_SCALE_CHOICE": 5,
+        "KEY_TEMPERATURE": 3
+    },
+    "capabilities": [
+        "location",
+        "configurable"
+    ],
+    "companyName": "KyleLanmon",
+    "longName": "Diurnal",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/BATT_10.png",
+                "name": "BATT_10",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_09.png",
+                "name": "BATT_09",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_08.png",
+                "name": "BATT_08",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_07.png",
+                "name": "BATT_07",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_06.png",
+                "name": "BATT_06",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_05.png",
+                "name": "BATT_05",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_04.png",
+                "name": "BATT_04",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_03.png",
+                "name": "BATT_03",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_02.png",
+                "name": "BATT_02",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_01.png",
+                "name": "BATT_01",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/BATT_00.png",
+                "name": "BATT_00",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Diurnal",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "3d2f6e27-115a-4a67-ad5e-b85e47fcc226",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
