@@ -19,6 +19,12 @@
     "resources": {
         "media": [
             {
+                "file": "fonts/Verdana Bold.ttf",
+                "name": "FONT_DOZENAL_42",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
                 "file": "images/BATT_10.png",
                 "name": "BATT_10",
                 "targetPlatforms": null,
