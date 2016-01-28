@@ -15,6 +15,8 @@
  *    TODO:
  *        - font
  *        - semidiurnal time is not right
+ *        - date format
+ *        - smaller battery indicator
  */
 
 Window *window;
@@ -165,11 +167,11 @@ void update_scale(double temp) {
             snprintf(temperature_buffer, sizeof(temperature_buffer), "%s °C", dec_to_doz((int)round(temp)));
             break;
         case 2:    // Q Celsius
-            temp = temp * 2.541;
+            temp = temp * 2.514;
             snprintf(temperature_buffer, sizeof(temperature_buffer), "%s Q°C", dec_to_doz((int)round(temp)));
             break;
         case 3:    // Q Fahrenheit
-            temp = (temp * 2.541) + 48;
+            temp = (temp * 2.514) + 48;
             snprintf(temperature_buffer, sizeof(temperature_buffer), "%s Q°F", dec_to_doz(round(temp)));
             break;
     }
@@ -220,15 +222,17 @@ static void handle_date() {
     switch (date_format) {
         case 0:
             snprintf(date_buff, sizeof(date_buff), "%s.%s.%s %s",
+                     wkDay,
                      DOZ_PAIRS[tick_time->tm_mday],
                      DOZ_PAIRS[tick_time->tm_mon+1],
-                     year, wkDay);
+                     year);
             break;
         case 1:
             snprintf(date_buff, sizeof(date_buff), "%s/%s/%s %s",
+                     wkDay,
                      DOZ_PAIRS[tick_time->tm_mon+1],
                      DOZ_PAIRS[tick_time->tm_mday],
-                     year, wkDay);
+                     year);
             break;
         case 2:
             snprintf(date_buff, sizeof(date_buff), "%s-%s-%s %s",
@@ -328,8 +332,16 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
     handle_battery();
     handle_date();
     
-    if(((tick_time->tm_min) * 60 + tick_time->tm_sec) % 50 == 0)
-		update_time();
+    switch (clock_format) {
+        case 0:    // diurnal
+            if(((tick_time->tm_min) * 60 + tick_time->tm_sec) % 50 == 0)
+		        update_time();
+            break;
+        case 1:    // semidiurnal
+            if(((tick_time->tm_min) * 60 + tick_time->tm_sec) % 25 == 0)
+		        update_time();
+            break;
+    }
     
     // Get weather update every 30 minutes
     if(tick_time->tm_min % 30 == 0)
