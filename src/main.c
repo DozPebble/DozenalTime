@@ -25,6 +25,7 @@ GBitmap *battery;
 BitmapLayer *battery_layer;
 Layer *line;
 static int scale = 0, clock_format = 0, date_format = 0;
+static GFont s_font_small, s_font_medium, s_font_large;
 
 static const int BATTERY[] = {
     RESOURCE_ID_BATT_00,
@@ -221,14 +222,14 @@ static void handle_date() {
     static char date_buff[14];
     switch (date_format) {
         case 0:
-            snprintf(date_buff, sizeof(date_buff), "%s.%s.%s %s",
+            snprintf(date_buff, sizeof(date_buff), "%s %s.%s.%s",
                      wkDay,
                      DOZ_PAIRS[tick_time->tm_mday],
                      DOZ_PAIRS[tick_time->tm_mon+1],
                      year);
             break;
         case 1:
-            snprintf(date_buff, sizeof(date_buff), "%s/%s/%s %s",
+            snprintf(date_buff, sizeof(date_buff), "%s %s/%s/%s",
                      wkDay,
                      DOZ_PAIRS[tick_time->tm_mon+1],
                      DOZ_PAIRS[tick_time->tm_mday],
@@ -262,6 +263,7 @@ static void update_time() {
             snprintf(time_buff, sizeof(time_buff), "%s%s", DOZ_GROUPS[tick_time->tm_hour/2], DOZ_PAIRS[minutes]);
             break;
         case 1:    // semidiurnal
+            minutes = ((tick_time->tm_min)*60+(tick_time->tm_sec))/25;
             snprintf(time_buff, sizeof(time_buff), "%s.%s", DOZ_GROUPS[tick_time->tm_hour], DOZ_PAIRS[minutes]);
             break;
     }
@@ -273,18 +275,22 @@ static void window_load(Window *window) {
     read_settings_from_memory();
     GRect bounds = layer_get_bounds(window_get_root_layer(window));
     
+    s_font_large = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_VERDANA_NBOLD_42));
+    s_font_medium = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_VERDANA_NBOLD_15));
+    s_font_small = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_VERDANA_NBOLD_12));
+    
     time_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(7, 0), bounds.size.w, 55));
     text_layer_set_background_color(time_layer, GColorClear);
     text_layer_set_text_color(time_layer, COLOR_FALLBACK(GColorFromHEX(0x1200ff), GColorBlack));
     text_layer_set_text(time_layer, "nnn");
-    text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
+    text_layer_set_font(time_layer, s_font_large);
     text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
     
     date_layer = text_layer_create(GRect(0, 55, bounds.size.w, 20));
     text_layer_set_background_color(date_layer, GColorClear);
     text_layer_set_text_color(date_layer, COLOR_FALLBACK(GColorFromHEX(0x9b0000), GColorBlack));
     text_layer_set_text(date_layer, "mm-dd-yyyy");
-    text_layer_set_font(date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
+    text_layer_set_font(date_layer, s_font_medium);
     text_layer_set_text_alignment(date_layer, GTextAlignmentCenter);
     
     line = layer_create(GRect(PBL_IF_ROUND_ELSE(12, 8), 90, PBL_IF_ROUND_ELSE(155, 128), 2));
@@ -294,14 +300,14 @@ static void window_load(Window *window) {
     text_layer_set_background_color(condition_layer, GColorClear);
     text_layer_set_text_color(condition_layer, COLOR_FALLBACK(GColorFromHEX(0x666159), GColorBlack));
     text_layer_set_text_alignment(condition_layer, GTextAlignmentCenter);
-    text_layer_set_font(condition_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
+    text_layer_set_font(condition_layer, s_font_small);
     text_layer_set_text(condition_layer, "Loading");
     
     temperature_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(5, 0), 125, bounds.size.w/2, 168));
     text_layer_set_text_alignment(temperature_layer, GTextAlignmentCenter);
     text_layer_set_background_color(temperature_layer, GColorClear);
     text_layer_set_text_color(temperature_layer, COLOR_FALLBACK(GColorFromHEX(0x666159), GColorBlack));
-    text_layer_set_font(temperature_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
+    text_layer_set_font(temperature_layer, s_font_small);
     text_layer_set_text(temperature_layer, "---");
     
     battery = gbitmap_create_with_resource(BATTERY[0]);

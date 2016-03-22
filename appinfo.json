@@ -14,16 +14,11 @@
         "configurable"
     ],
     "companyName": "KyleLanmon",
-    "longName": "Diurnal",
+    "enableMultiJS": false,
+    "longName": "Dozenal Time",
     "projectType": "native",
     "resources": {
         "media": [
-            {
-                "file": "fonts/Verdana Bold.ttf",
-                "name": "FONT_DOZENAL_42",
-                "targetPlatforms": null,
-                "type": "font"
-            },
             {
                 "file": "images/BATT_10.png",
                 "name": "BATT_10",
@@ -89,11 +84,29 @@
                 "name": "BATT_00",
                 "targetPlatforms": null,
                 "type": "bitmap"
+            },
+            {
+                "file": "fonts/Verdana Bold.ttf",
+                "name": "FONT_VERDANA_NBOLD_12",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "file": "fonts/Verdana Bold.ttf",
+                "name": "FONT_VERDANA_NBOLD_15",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "file": "fonts/Verdana Bold.ttf",
+                "name": "FONT_VERDANA_NBOLD_42",
+                "targetPlatforms": null,
+                "type": "font"
             }
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Diurnal",
+    "shortName": "DozTime",
     "targetPlatforms": [
         "aplite",
         "basalt",
